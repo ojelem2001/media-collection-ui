@@ -30,8 +30,8 @@ jobs:
         username: ${{ secrets.VM_USER }}
         key: ${{ secrets.VM_SSH_KEY }} 
         script: |
-          cd ~/applications/my-movie-collection
-          git pull origin main && ng build --output-path=/var/www/html/my-movie-collection/
+          cd ~/applications/media-collection
+          git pull origin main && ng build --output-path=/var/www/html/media-collection/
     - name: Verify deployment
       uses: appleboy/ssh-action@v1
       with:
@@ -39,4 +39,4 @@ jobs:
         username: ${{ secrets.VM_USER }}
         key: ${{ secrets.VM_SSH_KEY }}
         script: |
-          curl -I http://${{ secrets.VM_HOST }}/my-movie-collection
+          curl -I http://${{ secrets.VM_HOST }}/media-collection
