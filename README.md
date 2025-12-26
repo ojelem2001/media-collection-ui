@@ -35,8 +35,8 @@
 1. Клонируйте репозиторий:
 
    ```bash
-   git clone https://github.com/ojelem2001/my-movie-collection.git
-   cd my-movie-collection
+   git clone https://github.com/ojelem2001/media-collection-ui.git
+   cd media-collection-ui
 2. Установите зависимости:
 	`npm install`
 3. Запустите приложение:
