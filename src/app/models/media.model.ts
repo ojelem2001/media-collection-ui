@@ -3,19 +3,15 @@ import { MediaPlatform } from './media-platform.model';
 import { SeriesModel } from './series.model';
 
 export interface Media {
-  id: number;
+  id: string;
   title: string;
   originalTitle?: string;
   year: number;
-  genres: string[];
   description: string;
   posterUrl: string;
-  posterUrl2?: string;
-  imdb?: MediaPlatform,
-  kinopoisk?: MediaPlatform,
-  letterboxd?: MediaPlatform,
+  aggregators: MediaPlatform[],
   type: MediaType;
-  seriesInfo?: SeriesModel,
+  seriesInfo?: SeriesModel | null,
   seasons?: number;
   episodes?: number;
   filePath?: string; // Путь к файлу на диске

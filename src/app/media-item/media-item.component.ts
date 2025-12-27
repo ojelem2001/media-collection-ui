@@ -1,6 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Media } from '../models/media.model';
 import { MediaType } from '../models/media.enum';
+import { AggregatorType } from '../models/aggregator.enum';
+import { MediaPlatform } from '../models/media-platform.model';
 
 @Component({
   selector: 'app-media-item',
@@ -12,7 +14,17 @@ export class MediaItemComponent {
   @Input() media!: Media;
 
   mediaType = MediaType;
- playInVLC() {
+  aggregatorType = AggregatorType;
+
+  getGenres(media: Media): string[] {
+    return media.aggregators?.find(x => x.type == AggregatorType.Kinopoisk)?.genres ?? []
+  }
+
+  getAggregator(media: Media, type: AggregatorType): MediaPlatform | null | undefined {
+    return media.aggregators?.find(x => x.type == type);
+  }
+
+  playInVLC() {
   if (!this.media.filePath) {
     console.error('File path not specified');
     return;

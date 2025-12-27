@@ -8,10 +8,10 @@ import { MediaType } from '../models/media.enum';
 })
 export class MediaService {
   getMovies(): Media[] {
-    return MEDIAS_MOCKS.filter(x => x.type == MediaType.MOVIE);
+    return MEDIAS_MOCKS.filter(x => x.type == MediaType.Movie);
   }
 
   getSeries(): Media[] {
-    return MEDIAS_MOCKS.filter(x => x.type == MediaType.SERIES);
+    return MEDIAS_MOCKS.filter(x => x.type == MediaType.Series);
   }
 }

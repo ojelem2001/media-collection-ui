@@ -1,8 +1,9 @@
-import { MediaType } from './media.enum';
+import { AggregatorType } from './aggregator.enum';
 
 export interface MediaPlatform {
   id: string;
-  rating?: number;
-  description?: string;
-  genres?: string[];
+  type: AggregatorType;
+  rating?: number | null;
+  description?: string | null;
+  genres?: string[] | null;
 }

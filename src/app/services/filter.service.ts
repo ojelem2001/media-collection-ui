@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Media } from '../models/media.model';
+import { AggregatorType } from '../models/aggregator.enum';
 import { DecadeFilter } from '../models/decade.enum';
 import { AvailableFilterOptions } from '../models/available-filter-options.model';
 import { BehaviorSubject } from 'rxjs';
@@ -17,8 +18,10 @@ export class FilterService {
 
   filterByGenre(items: Media[], genre: string | undefined): Media[] {
     if (!genre) return items;
-    return items.filter(item => 
-      item.genres.some(g => g.toLowerCase().includes(genre.toLowerCase()))
+    return items.filter(item => {
+      let genres = item.aggregators.find(x => x.type == AggregatorType.Kinopoisk)?.genres ?? [];
+      return genres?.some(g => g.toLowerCase().includes(genre.toLowerCase()));
+    }
     );
   }
 
@@ -28,7 +31,7 @@ export class FilterService {
   }
 
   getAvailableGenres(items: Media[]): string[] {
-    const allGenres = items.flatMap(item => item.genres);
+    const allGenres = items.flatMap(item => item.aggregators.find(x => x.type == AggregatorType.Kinopoisk)?.genres ?? []);
     return [...new Set(allGenres)]; 
   }
 

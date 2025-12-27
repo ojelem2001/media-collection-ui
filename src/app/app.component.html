@@ -18,7 +18,7 @@
   <div class="category-tabs">
     <button 
       class="category-tab" 
-      [class.active]="currentView === mediaType.MOVIE"
+      [class.active]="currentView === mediaType.Movie"
       (click)="showMovies()">
       <i class="tab-icon movie-icon"></i>
       <span>Фильмы</span>
@@ -27,7 +27,7 @@
     
     <button 
       class="category-tab" 
-      [class.active]="currentView === mediaType.SERIES"
+      [class.active]="currentView === mediaType.Series"
       (click)="showSeries()">
       <i class="tab-icon series-icon"></i>
       <span>Сериалы</span>
@@ -35,13 +35,13 @@
     </button>
   </div>
   
-  @if (currentView === mediaType.MOVIE) {
+  @if (currentView === mediaType.Movie) {
     <app-media-list
       [filters]="currentFilters" 
       [medias]="movies">
     </app-media-list>
   } 
-  @if (currentView === mediaType.SERIES) {
+  @if (currentView === mediaType.Series) {
     <app-media-list
       [filters]="currentFilters" 
       [medias]="series">

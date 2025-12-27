@@ -11,7 +11,7 @@
     }
     
     <div class="media-meta">
-      @if (media.type === mediaType.SERIES) {
+      @if (media.type === mediaType.Series) {
         <div class="media-dates">
           <span class="year-range">
             {{media.year + '-' + media.seriesInfo?.endYear}}
@@ -21,7 +21,7 @@
         <span class="year">{{ media.year }}</span>
       }
       
-      @if (media.type === mediaType.SERIES && media.seriesInfo) {
+      @if (media.type === mediaType.Series && media.seriesInfo) {
         <div class="series-stats">
           <span class="seasons">
             <i class="icon seasons-icon"></i>
@@ -30,28 +30,28 @@
         </div>
       } 
     
-      <span class="genres">{{ media.genres.slice(0, 2).join(', ') }}</span>
-       @if (media.genres.length > 3) {
-        <span  class="more-genres">+{{ media.genres.length - 3 }}</span>
+      <span class="genres">{{ getGenres(media).slice(0, 2).join(', ') }}</span>
+       @if (getGenres(media).length > 3) {
+        <span  class="more-genres">+{{ getGenres(media).length - 3 }}</span>
        }
     </div>
     
     <div class="ratings">
       <span class="rating">
         <span class="rating-icon imdb-icon"></span>
-        {{ media.imdb?.rating || '-' }}
+        {{ getAggregator(media, aggregatorType.IMDB)?.rating || '-' }}
       </span>
       <span class="rating">
         <span class="rating-icon kinopoisk-icon"></span>
-        {{ media.kinopoisk?.rating || '-' }}
+        {{ getAggregator(media, aggregatorType.Kinopoisk)?.rating || '-' }}
       </span>
       <span class="rating">
         <span class="rating-icon letterboxd-icon"></span>
-        {{ media.letterboxd?.rating || '-' }}
+        {{ getAggregator(media, aggregatorType.Letterboxd)?.rating || '-' }}
       </span>
     </div>
 
-    <p class="description">{{ media.kinopoisk?.description ?? media.description }}</p>
+    <p class="description">{{ getAggregator(media, aggregatorType.Kinopoisk)?.description ?? media.description }}</p>
     
     <button class="play-button" (click)="playInVLC()">
       <span class="vlc-icon"></span> Смотреть

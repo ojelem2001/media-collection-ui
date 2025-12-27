@@ -17,7 +17,7 @@ export class AppComponent implements OnInit  {
   protected readonly title = signal('my-movie-collection');
   currentFilters?: FilterOptions;
   options?: AvailableFilterOptions;
-  currentView: MediaType = MediaType.MOVIE;
+  currentView: MediaType = MediaType.Movie;
   moviesCount$$  = new BehaviorSubject<number>(0);
   seriesCount$$  = new BehaviorSubject<number>(0);
   mediaType = MediaType;
@@ -35,16 +35,16 @@ export class AppComponent implements OnInit  {
     this.series = this.mediaService.getSeries();
     this.moviesCount$$.next(this.movies.length);
     this.seriesCount$$.next(this.series.length);
-    this.currentView = MediaType.MOVIE;
+    this.currentView = MediaType.Movie;
   }
 
   showMovies() {
-    this.currentView = MediaType.MOVIE;
+    this.currentView = MediaType.Movie;
     localStorage.setItem('mediaType', this.currentView);
   }
 
   showSeries() {
-    this.currentView = MediaType.SERIES;
+    this.currentView = MediaType.Series;
     localStorage.setItem('mediaType', this.currentView);
   }
 
