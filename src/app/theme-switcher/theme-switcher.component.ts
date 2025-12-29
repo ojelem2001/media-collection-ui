@@ -6,7 +6,8 @@ import { ThemeType } from '../models/theme.enum';
   selector: 'app-theme-switcher',
   standalone: false,
   templateUrl: './theme-switcher.component.html',
-  styleUrls: ['./theme-switcher.component.css']
+  styleUrls: ['./theme-switcher.component.css'],  
+  host: { 'ngSkipHydration': 'true' }
 })
 export class ThemeSwitcherComponent {
   currentTheme: ThemeType | undefined;

@@ -71,7 +71,8 @@
               "buildTarget": "my-movie-collection:build:production"
             },
             "development": {
-              "buildTarget": "my-movie-collection:build:development"
+              "buildTarget": "my-movie-collection:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
