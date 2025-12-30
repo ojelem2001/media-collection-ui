@@ -11,7 +11,9 @@
         <rect class="logo-icon-bg" x="10" y="15" width="30" height="30" rx="4"/>
         <polygon class="logo-icon" points="20,22 20,38 32,30"/>
       </svg>
-      <app-theme-switcher ngSkipHydration></app-theme-switcher>
+      @if (isBrowser) {        
+        <app-theme-switcher></app-theme-switcher>
+      }
     </div>
   </div>
 
@@ -36,15 +38,23 @@
   </div>
   
   @if (currentView === mediaType.Movie) {
-    <app-media-list
-      [filters]="currentFilters" 
-      [medias]="movies">
-    </app-media-list>
-  } 
+    @if (movies$ | async; as movies) {
+       <app-media-list
+        [filters]="currentFilters" 
+        [medias]="movies">
+      </app-media-list>
+    } @else {
+      <div class="loader-container">Загрузка...</div>
+    }
+  }
   @if (currentView === mediaType.Series) {
-    <app-media-list
-      [filters]="currentFilters" 
-      [medias]="series">
-    </app-media-list>
+     @if (series$ | async; as series) {
+       <app-media-list
+        [filters]="currentFilters" 
+        [medias]="series">
+      </app-media-list>
+    } @else {
+      <div class="loader-container">Загрузка...</div>
+    }
   }
 </div>

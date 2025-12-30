@@ -6,6 +6,8 @@ import { ThemeSwitcherComponent } from './theme-switcher/theme-switcher.componen
 import { MediaFiltersComponent } from './media-filters/media-filters.component';
 import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
+import { provideHttpClient, withFetch } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { AppComponent } from './app.component';
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
-    provideClientHydration(withEventReplay())
+    provideClientHydration(withEventReplay()),
+    provideHttpClient(withFetch())
   ],
   bootstrap: [AppComponent]
 })

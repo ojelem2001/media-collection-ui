@@ -1,4 +1,6 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { Component, Inject, PLATFORM_ID, OnInit, signal } from '@angular/core';
+import { Observable, map, tap } from 'rxjs';
 import { ThemeService } from './services/theme.service';
 import { MediaService } from './services/media.service';
 import { FilterOptions } from './models/filter-options.model';
@@ -21,21 +23,33 @@ export class AppComponent implements OnInit  {
   moviesCount$$  = new BehaviorSubject<number>(0);
   seriesCount$$  = new BehaviorSubject<number>(0);
   mediaType = MediaType;
-  movies: Media[] = [];
-  series: Media[] = [];
+  media$?: Observable<Media[]>;
+  movies$?: Observable<Media[]>;
+  series$?: Observable<Media[]>;
+
+  isBrowser: boolean;
+
 
   constructor(
+    @Inject(PLATFORM_ID) platformId: Object,
     private themeService: ThemeService,
     private mediaService: MediaService,
-  ) {}
+  ) {
+    this.isBrowser = isPlatformBrowser(platformId);
+  }
 
   ngOnInit(): void {
     this.themeService.initializeTheme();
-    this.movies = this.mediaService.getMovies();
-    this.series = this.mediaService.getSeries();
-    this.moviesCount$$.next(this.movies.length);
-    this.seriesCount$$.next(this.series.length);
+    this.media$ = this.mediaService.getMedia();     
     this.currentView = MediaType.Movie;
+    this.movies$ = this.media$
+    .pipe(
+      map(x => x.filter(c => c.type == MediaType.Movie)),
+      tap(movies => this.moviesCount$$.next(movies.length)));
+    this.series$ = this.media$
+    .pipe(
+      map(x => x.filter(c => c.type == MediaType.Series)),
+      tap(series => this.seriesCount$$.next(series.length)));
   }
 
   showMovies() {

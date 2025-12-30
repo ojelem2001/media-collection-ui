@@ -76,7 +76,8 @@
               "buildTarget": "my-media-collection:build:production"
             },
             "development": {
-              "buildTarget": "my-media-collection:build:development"
+              "buildTarget": "my-media-collection:build:development",
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"
