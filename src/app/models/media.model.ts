@@ -3,7 +3,7 @@ import { MediaPlatform } from './media-platform.model';
 import { SeriesModel } from './series.model';
 
 export interface Media {
-  id: string;
+  id?: string;
   title: string;
   originalTitle?: string;
   year: number;

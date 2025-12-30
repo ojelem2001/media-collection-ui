@@ -16,7 +16,7 @@ import { AvailableFilterOptions } from './models/available-filter-options.model'
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit  {  
-  protected readonly title = signal('my-movie-collection');
+  protected readonly title = signal('my-media-collection');
   currentFilters?: FilterOptions;
   options?: AvailableFilterOptions;
   currentView: MediaType = MediaType.Movie;

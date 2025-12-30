@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "my-movie-collection": {
+    "my-media-collection": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -54,12 +54,17 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "fileReplacements": [{
+                "replace": "src/environments/environment.ts",
+                "with": "src/environments/environment.prod.ts"
+              }]
             },
             "development": {
-              "optimization": false,
+              "optimization": true,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": false,
+              "outputHashing": "all"
             }
           },
           "defaultConfiguration": "production"
@@ -68,10 +73,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "my-movie-collection:build:production"
+              "buildTarget": "my-media-collection:build:production"
             },
             "development": {
-              "buildTarget": "my-movie-collection:build:development",
+              "buildTarget": "my-media-collection:build:development",
               "proxyConfig": "proxy.conf.json"
             }
           },

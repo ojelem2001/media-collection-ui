@@ -1,5 +1,5 @@
 {
-  "name": "my-movie-collection",
+  "name": "my-media-collection",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -7,7 +7,7 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:my-movie-collection": "node dist/my-movie-collection/server/server.mjs"
+    "serve:ssr:my-media-collection": "node dist/my-media-collection/server/server.mjs"
   },
   "prettier": {
     "overrides": [
