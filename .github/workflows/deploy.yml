@@ -1,4 +1,4 @@
-name: Deploy My-Movie-Collection app
+name: Deploy media-collection-ui app
 
 on:
   push:
