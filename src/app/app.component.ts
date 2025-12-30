@@ -49,7 +49,7 @@ export class AppComponent implements OnInit  {
     this.series$ = this.media$
     .pipe(
       map(x => x.filter(c => c.type == MediaType.Series)),
-      tap(series => this.moviesCount$$.next(series.length)));
+      tap(series => this.seriesCount$$.next(series.length)));
   }
 
   showMovies() {
