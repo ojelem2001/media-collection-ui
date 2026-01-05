@@ -1,6 +1,6 @@
-import { DecadeFilter } from '../models/decade.enum';
+import { DecadeFilter } from './decade.enum';
 
-export interface FilterOptions {
+export interface IFilterOptions {
   genre?: string;
   year?: number;
   decades?: DecadeFilter;

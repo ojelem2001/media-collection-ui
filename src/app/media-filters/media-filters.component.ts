@@ -1,7 +1,6 @@
 import { Component, Input, Output,EventEmitter } from '@angular/core';
-import { FilterOptions } from '../models/filter-options.model';
-import { DecadeFilter } from '../models/decade.enum';
-import { FilterService } from '../services/filter.service';
+import { IFilterOptions, DecadeFilter } from '../models';
+import { FilterService } from '../services';
 
 @Component({
   selector: 'app-media-filters',
@@ -10,7 +9,7 @@ import { FilterService } from '../services/filter.service';
   styleUrls: ['./media-filters.component.css']
 })
 export class MediaFiltersComponent {
-  @Output() filterChange = new EventEmitter<FilterOptions>();
+  @Output() filterChange = new EventEmitter<IFilterOptions>();
   
   selectedGenre = '';
   selectedYear: number = 0;

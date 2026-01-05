@@ -1,9 +1,9 @@
-import { Media } from './media.model';
+import { IMedia } from './media.interface';
 import { MediaType } from './media.enum';
 import { AggregatorType } from './aggregator.enum';
 
 
-export const MEDIAS_MOCKS: Media[] = 
+export const MEDIAS_MOCKS: IMedia[] = 
 [
   {
     "title": "Аполлон 13",

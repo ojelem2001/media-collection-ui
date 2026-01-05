@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ThemeService } from '../services/theme.service';
-import { ThemeType } from '../models/theme.enum';
+import { ThemeService } from '../services';
+import { ThemeType } from '../models';
 
 @Component({
   selector: 'app-theme-switcher',

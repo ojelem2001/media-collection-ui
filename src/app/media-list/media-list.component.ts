@@ -1,7 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { Media } from '../models/media.model';
-import { FilterOptions } from '../models/filter-options.model';
-import { FilterService } from '../services/filter.service';
+import { IMedia, IFilterOptions } from '../models';
+import { FilterService } from '../services';
 
 @Component({
   selector: 'app-media-list',
@@ -10,17 +9,17 @@ import { FilterService } from '../services/filter.service';
   styleUrls: ['./media-list.component.css']
 })
 export class MovieListComponent {
-  @Input() filters: FilterOptions | undefined;
-  @Input() set medias(value: Media[]) {
+  @Input() filters: IFilterOptions | undefined;
+  @Input() set medias(value: IMedia[]) {
     this.initMovies(value);
   }
-  mediaCollection: Media[] = [];
+  mediaCollection: IMedia[] = [];
 
   constructor(
     private filterService: FilterService
   ) {}
 
-  initMovies(medias: Media[]): void {
+  initMovies(medias: IMedia[]): void {
     const sortedMovies = medias.sort((a, b) => {
       const titleA = a.title.toLowerCase();
       const titleB = b.title.toLowerCase();      
@@ -33,7 +32,7 @@ export class MovieListComponent {
     });
   }
 
-  getFiltered(filters: FilterOptions | undefined): Media[] {
+  getFiltered(filters: IFilterOptions | undefined): IMedia[] {
     let result = [...this.mediaCollection];
     if(!filters){
       return result;      

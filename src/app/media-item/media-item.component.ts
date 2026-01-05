@@ -1,8 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Media } from '../models/media.model';
-import { MediaType } from '../models/media.enum';
-import { AggregatorType } from '../models/aggregator.enum';
-import { MediaPlatform } from '../models/media-platform.model';
+import { IMedia, IMediaPlatform, AggregatorType, MediaType } from '../models';
 
 @Component({
   selector: 'app-media-item',
@@ -11,16 +8,16 @@ import { MediaPlatform } from '../models/media-platform.model';
   styleUrls: ['./media-item.component.css']
 })
 export class MediaItemComponent {
-  @Input() media!: Media;
+  @Input() media!: IMedia;
 
   mediaType = MediaType;
   aggregatorType = AggregatorType;
 
-  getGenres(media: Media): string[] {
+  getGenres(media: IMedia): string[] {
     return media.aggregators?.find(x => x.type == AggregatorType.Kinopoisk)?.genres ?? []
   }
 
-  getAggregator(media: Media, type: AggregatorType): MediaPlatform | null | undefined {
+  getAggregator(media: IMedia, type: AggregatorType): IMediaPlatform | null | undefined {
     return media.aggregators?.find(x => x.type == type);
   }
 

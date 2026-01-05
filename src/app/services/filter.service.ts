@@ -1,22 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Media } from '../models/media.model';
-import { AggregatorType } from '../models/aggregator.enum';
-import { DecadeFilter } from '../models/decade.enum';
-import { AvailableFilterOptions } from '../models/available-filter-options.model';
+import { IMedia, AggregatorType, DecadeFilter, IAvailableFilterOptions } from '../models';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FilterService {
-  private _availableOptions = new BehaviorSubject<AvailableFilterOptions>({ genres: [], years: [] });
+  private _availableOptions = new BehaviorSubject<IAvailableFilterOptions>({ genres: [], years: [] });
   availableOptions$ = this._availableOptions.asObservable();
 
-  updateAvailableOptions(options: AvailableFilterOptions) {
+  updateAvailableOptions(options: IAvailableFilterOptions) {
     this._availableOptions.next(options);
   }
 
-  filterByGenre(items: Media[], genre: string | undefined): Media[] {
+  filterByGenre(items: IMedia[], genre: string | undefined): IMedia[] {
     if (!genre) return items;
     return items.filter(item => {
       let genres = item.aggregators.find(x => x.type == AggregatorType.Kinopoisk)?.genres ?? [];
@@ -25,22 +22,22 @@ export class FilterService {
     );
   }
 
-  filterByYear(items: Media[], year: number | undefined): Media[] {
+  filterByYear(items: IMedia[], year: number | undefined): IMedia[] {
     if (year === 0) return items;
     return items.filter(item => item.year === year);
   }
 
-  getAvailableGenres(items: Media[]): string[] {
+  getAvailableGenres(items: IMedia[]): string[] {
     const allGenres = items.flatMap(item => item.aggregators.find(x => x.type == AggregatorType.Kinopoisk)?.genres ?? []);
     return [...new Set(allGenres)]; 
   }
 
-  getAvailableYears(items: Media[]): number[] {
+  getAvailableYears(items: IMedia[]): number[] {
     const years = items.map(item => item.year);
     return [...new Set(years)].sort((a, b) => b - a);
   }
 
-  filterBySearch(items: Media[], query: string | undefined): Media[] {
+  filterBySearch(items: IMedia[], query: string | undefined): IMedia[] {
     if (!query) return items;
     
     const lowerQuery = query.toLowerCase();
@@ -50,7 +47,7 @@ export class FilterService {
     );
   }
 
-  filterByDecade(movies: Media[], decade: DecadeFilter | undefined): Media[] { 
+  filterByDecade(movies: IMedia[], decade: DecadeFilter | undefined): IMedia[] { 
   switch(decade) {
     case DecadeFilter.BEFORE_1990:
       return movies.filter(m => m.year < 1990);

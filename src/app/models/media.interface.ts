@@ -1,17 +1,17 @@
 import { MediaType } from './media.enum';
-import { MediaPlatform } from './media-platform.model';
-import { SeriesModel } from './series.model';
+import { IMediaPlatform } from './media-platform.interface';
+import { ISeriesModel } from './series.interface';
 
-export interface Media {
+export interface IMedia {
   id?: string;
   title: string;
   originalTitle?: string;
   year: number;
   description: string;
   posterUrl: string;
-  aggregators: MediaPlatform[],
+  aggregators: IMediaPlatform[],
   type: MediaType;
-  seriesInfo?: SeriesModel | null,
+  seriesInfo?: ISeriesModel | null,
   seasons?: number;
   episodes?: number;
   filePath?: string; // Путь к файлу на диске

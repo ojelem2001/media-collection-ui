@@ -1,6 +1,6 @@
 import { AggregatorType } from './aggregator.enum';
 
-export interface MediaPlatform {
+export interface IMediaPlatform {
   id: string;
   type: AggregatorType;
   rating?: number | null;

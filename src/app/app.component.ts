@@ -1,13 +1,9 @@
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, isPlatformServer } from '@angular/common';
 import { Component, Inject, PLATFORM_ID, OnInit, signal } from '@angular/core';
 import { Observable, map, tap } from 'rxjs';
-import { ThemeService } from './services/theme.service';
-import { MediaService } from './services/media.service';
-import { FilterOptions } from './models/filter-options.model';
-import { MediaType } from './models/media.enum';
-import { Media } from './models/media.model';
+import { ThemeService, MediaService } from './services';
+import { IFilterOptions, MediaType, IMedia, IAvailableFilterOptions } from './models';
 import { BehaviorSubject } from 'rxjs';
-import { AvailableFilterOptions } from './models/available-filter-options.model';
 
 @Component({
   selector: 'app-root',
@@ -17,17 +13,18 @@ import { AvailableFilterOptions } from './models/available-filter-options.model'
 })
 export class AppComponent implements OnInit  {  
   protected readonly title = signal('my-media-collection');
-  currentFilters?: FilterOptions;
-  options?: AvailableFilterOptions;
+  currentFilters?: IFilterOptions;
+  options?: IAvailableFilterOptions;
   currentView: MediaType = MediaType.Movie;
   moviesCount$$  = new BehaviorSubject<number>(0);
   seriesCount$$  = new BehaviorSubject<number>(0);
   mediaType = MediaType;
-  media$?: Observable<Media[]>;
-  movies$?: Observable<Media[]>;
-  series$?: Observable<Media[]>;
+  media$?: Observable<IMedia[]>;
+  movies$?: Observable<IMedia[]>;
+  series$?: Observable<IMedia[]>;
 
   isBrowser: boolean;
+  platformId: Object;
 
 
   constructor(
@@ -36,10 +33,13 @@ export class AppComponent implements OnInit  {
     private mediaService: MediaService,
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
+    this.platformId = platformId;
   }
 
   ngOnInit(): void {
-    this.themeService.initializeTheme();
+    this.themeService.initializeTheme();    
+    if (isPlatformServer(this.platformId)){ return; }
+
     this.media$ = this.mediaService.getMedia();     
     this.currentView = MediaType.Movie;
     this.movies$ = this.media$
@@ -62,7 +62,7 @@ export class AppComponent implements OnInit  {
     localStorage.setItem('mediaType', this.currentView);
   }
 
-  onFiltersChanged(filters: FilterOptions) {
+  onFiltersChanged(filters: IFilterOptions) {
     this.currentFilters = filters;
   }
 }
