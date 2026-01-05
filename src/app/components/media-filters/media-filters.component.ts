@@ -1,6 +1,6 @@
 import { Component, Input, Output,EventEmitter } from '@angular/core';
-import { IFilterOptions, DecadeFilter } from '../models';
-import { FilterService } from '../services';
+import { IFilterOptions, DecadeFilter } from '../../models';
+import { FilterService } from '../../services';
 
 @Component({
   selector: 'app-media-filters',

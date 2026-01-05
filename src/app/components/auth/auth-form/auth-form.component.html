@@ -1,0 +1,13 @@
+<div>
+  @if (currentUser$ | async; as user) {
+    <div class="user-menu">
+      <span class="user-name">{{ user.username }}</span>
+      <button class="logout-btn" (click)="logout()">Выйти</button>
+    </div>
+  } @else {
+    <div class="auth-buttons compact">
+      <a routerLink="/login" class="auth-btn">Войти</a>
+      <a routerLink="/register" class="auth-btn primary">Регистрация</a>
+    </div>
+  }
+</div>

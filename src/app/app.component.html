@@ -1,9 +1,20 @@
 <div class="container">
   <div class="head-container">
-    <app-media-filters
-      (filterChange)="onFiltersChanged($event)"
-    ></app-media-filters>
-    
+    <div class="header-content">
+      <div class="search-auth-row">
+        <div class="search-wrapper">
+          <app-media-filters
+            (filterChange)="onFiltersChanged($event)">
+          </app-media-filters>
+        </div>
+        
+        <div class="auth-wrapper">
+          <auth-form></auth-form>
+        </div>
+      </div>
+      
+    </div>
+
     <div class="logo-theme-container">
       <svg class="logo-themeable" width="200" height="60" viewBox="0 0 200 60" xmlns="http://www.w3.org/2000/svg">
         <rect class="logo-bg" width="200" height="60" rx="4"/>
@@ -11,6 +22,7 @@
         <rect class="logo-icon-bg" x="10" y="15" width="30" height="30" rx="4"/>
         <polygon class="logo-icon" points="20,22 20,38 32,30"/>
       </svg>
+      
       @if (isBrowser) {        
         <app-theme-switcher></app-theme-switcher>
       }

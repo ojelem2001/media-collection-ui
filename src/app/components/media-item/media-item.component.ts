@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IMedia, IMediaPlatform, AggregatorType, MediaType } from '../models';
+import { IMedia, IMediaPlatform, AggregatorType, MediaType } from '../../models';
 
 @Component({
   selector: 'app-media-item',

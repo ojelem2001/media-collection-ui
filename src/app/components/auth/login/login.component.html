@@ -1,0 +1,68 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2 class="auth-title">Вход в аккаунт</h2>
+    
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <div class="form-group">
+        <label for="login">Login</label>
+        <input 
+          id="login" 
+          type="email" 
+          formControlName="login" 
+          placeholder="Введите ваш email"
+          [class.error]="loginForm.get('login')?.invalid && loginForm.get('login')?.touched">
+        @if (loginForm.get('login')?.invalid && loginForm.get('login')?.touched) {
+        <div class="error-message">
+          @if (loginForm.get('login')?.errors?.['required']) {
+          <span>Логин обязателен</span>
+          }
+          @if (loginForm.get('login')?.errors?.['login']) {
+          <span>Введите корректный login</span>
+          }
+        </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <input 
+          id="password" 
+          type="password" 
+          formControlName="password" 
+          placeholder="Введите пароль"
+          [class.error]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+        @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          <div class="error-message">
+            @if (loginForm.get('password')?.errors?.['required']) {
+              <span>Пароль обязателен</span>
+            }
+            @if (loginForm.get('password')?.errors?.['minlength']) {
+              <span>Минимум 6 символов</span>
+            }
+          </div>
+        }
+      </div>
+
+      @if (errorMessage) {
+        <div class="auth-error">
+          {{ errorMessage }}
+        </div>
+      }
+
+      <button 
+        type="submit" 
+        class="auth-button" 
+        [disabled]="loginForm.invalid || isLoading">
+        @if (isLoading) {
+          <span class="spinner"></span>
+        } @else {
+          <span>Войти</span>
+        }
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Нет аккаунта? <a routerLink="/register" class="auth-link">Зарегистрироваться</a></p>
+    </div>
+  </div>
+</div>

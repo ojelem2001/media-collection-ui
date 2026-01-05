@@ -15,7 +15,6 @@
   flex-wrap: wrap;
 }
 
-/* Стили для поиска и фильтров */
 .filter-group {
   display: flex;
   align-items: center;
@@ -41,7 +40,6 @@
   max-width: 500px;
 }
 
-/* Адаптивность */
 @media (max-width: 768px) {
   .filters-container {
     padding-top: 60px;

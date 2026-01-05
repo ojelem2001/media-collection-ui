@@ -1,0 +1,115 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <h2 class="auth-title">Создать аккаунт</h2>
+    
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="auth-form">
+      <div class="form-group">
+        <label for="username">Имя пользователя</label>
+        <input 
+          id="username" 
+          type="text" 
+          formControlName="username" 
+          placeholder="Введите имя пользователя"
+          [class.error]="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+        @if (registerForm.get('username')?.invalid && registerForm.get('username')?.touched) {
+          <div class="error-message">
+            @if (registerForm.get('username')?.errors?.['required']) {
+              <span>Имя пользователя обязательно</span>
+            }
+            @if (registerForm.get('username')?.errors?.['minlength']) {
+              <span>Минимум 3 символа</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input 
+          id="email" 
+          type="email" 
+          formControlName="email" 
+          placeholder="Введите ваш email"
+          [class.error]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+        @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+          <div class="error-message">
+            @if (registerForm.get('email')?.errors?.['required']) {
+              <span>Email обязателен</span>
+            }
+            @if (registerForm.get('email')?.errors?.['email']) {
+              <span>Введите корректный email</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <input 
+          id="password" 
+          type="password" 
+          formControlName="password" 
+          placeholder="Введите пароль"
+          [class.error]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+          <div class="error-message">
+            @if (registerForm.get('password')?.errors?.['required']) {
+              <span>Пароль обязателен</span>
+            }
+            @if (registerForm.get('password')?.errors?.['minlength']) {
+              <span>Минимум 6 символов</span>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="confirmPassword">Подтвердите пароль</label>
+        <input 
+          id="confirmPassword" 
+          type="password" 
+          formControlName="confirmPassword" 
+          placeholder="Повторите пароль"
+          [class.error]="registerForm.get('confirmPassword')?.invalid || registerForm.errors?.['mismatch']">
+        @if (registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched) {
+          <div class="error-message">
+            @if (registerForm.get('confirmPassword')?.errors?.['required']) {
+              <span>Подтверждение пароля обязательно</span>
+            }
+          </div>
+        }
+        @if (registerForm.errors?.['mismatch'] && (registerForm.get('password')?.touched || registerForm.get('confirmPassword')?.touched)) {
+          <div class="error-message">
+            <span>Пароли не совпадают</span>
+          </div>
+        }
+      </div>
+
+      @if (errorMessage) {
+        <div class="auth-error">
+          {{ errorMessage }}
+        </div>
+      }
+
+      <button 
+        type="submit" 
+        class="auth-button" 
+        [disabled]="registerForm.invalid || isLoading">
+        @if (isLoading) {
+          <span class="spinner"></span>
+        } @else {
+          <span>Зарегистрироваться</span>
+        }
+      </button>
+    </form>
+
+    <div class="auth-footer">
+      <p>Уже есть аккаунт? <a routerLink="/login" class="auth-link">Войти</a></p>
+      <p class="terms-text">
+        Регистрируясь, вы соглашаетесь с 
+        <a href="#" class="terms-link">Условиями использования</a> и 
+        <a href="#" class="terms-link">Политикой конфиденциальности</a>
+      </p>
+    </div>
+  </div>
+</div>

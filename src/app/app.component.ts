@@ -16,9 +16,10 @@ export class AppComponent implements OnInit  {
   currentFilters?: IFilterOptions;
   options?: IAvailableFilterOptions;
   currentView: MediaType = MediaType.Movie;
+  mediaType = MediaType;
+
   moviesCount$$  = new BehaviorSubject<number>(0);
   seriesCount$$  = new BehaviorSubject<number>(0);
-  mediaType = MediaType;
   media$?: Observable<IMedia[]>;
   movies$?: Observable<IMedia[]>;
   series$?: Observable<IMedia[]>;
@@ -26,11 +27,10 @@ export class AppComponent implements OnInit  {
   isBrowser: boolean;
   platformId: Object;
 
-
   constructor(
     @Inject(PLATFORM_ID) platformId: Object,
     private themeService: ThemeService,
-    private mediaService: MediaService,
+    private mediaService: MediaService
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
     this.platformId = platformId;
@@ -39,7 +39,6 @@ export class AppComponent implements OnInit  {
   ngOnInit(): void {
     this.themeService.initializeTheme();    
     if (isPlatformServer(this.platformId)){ return; }
-
     this.media$ = this.mediaService.getMedia();     
     this.currentView = MediaType.Movie;
     this.movies$ = this.media$

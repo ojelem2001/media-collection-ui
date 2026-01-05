@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { IMedia, IFilterOptions } from '../models';
-import { FilterService } from '../services';
+import { IMedia, IFilterOptions } from '../../models';
+import { FilterService } from '../../services';
 
 @Component({
   selector: 'app-media-list',
@@ -8,7 +8,7 @@ import { FilterService } from '../services';
   templateUrl: './media-list.component.html',
   styleUrls: ['./media-list.component.css']
 })
-export class MovieListComponent {
+export class MediaListComponent {
   @Input() filters: IFilterOptions | undefined;
   @Input() set medias(value: IMedia[]) {
     this.initMovies(value);
