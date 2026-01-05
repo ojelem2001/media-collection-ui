@@ -31,7 +31,12 @@ jobs:
         key: ${{ secrets.VM_SSH_KEY }} 
         script: |
           cd ~/applications/media-collection-ui
-          git pull origin main && ng build --output-path=/var/www/html/media-collection/
+          echo "Pulling latest changes..."
+          git pull origin main
+          echo "Installing dependencies..."
+          npm ci
+          echo "Building Angular application..."
+          ng build --output-path=/var/www/html/media-collection/
     - name: Verify deployment
       uses: appleboy/ssh-action@v1
       with:
