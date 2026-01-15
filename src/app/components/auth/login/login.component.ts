@@ -1,37 +1,50 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { AuthService } from '../../../services';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css'],
   standalone: false
 })
 export class LoginComponent {
-  loginForm: FormGroup;
+  @Output() closed = new EventEmitter<void>();
+  
+  isLoginMode = true;
   isLoading = false;
   errorMessage = '';
+  
+  loginForm: FormGroup;
 
   constructor(
     private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router
+    private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
-      login: ['', [Validators.required ]],
+      login: ['', [Validators.required]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
 
+  switchMode(): void {
+    this.isLoginMode = !this.isLoginMode;
+    this.errorMessage = '';
+  }
+
+  close(): void {
+    this.closed.emit();
+  }
+
   onSubmit(): void {
+    console.log('!!loginForm=', this.loginForm)
     if (this.loginForm.valid) {
       this.isLoading = true;
       this.errorMessage = '';
       
       this.authService.login(this.loginForm.value).subscribe({
         next: () => {
-          this.router.navigate(['/']);
+          this.close();
         },
         error: (error) => {
           this.isLoading = false;

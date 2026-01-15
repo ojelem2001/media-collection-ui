@@ -6,8 +6,13 @@
     </div>
   } @else {
     <div class="auth-buttons compact">
-      <a routerLink="/login" class="auth-btn">Войти</a>
-      <a routerLink="/register" class="auth-btn primary">Регистрация</a>
+      <button class="auth-btn" (click)="showLoginModal()">
+        Войти
+      </button>
     </div>
+  }
+  
+  @if (showModal) {
+    <app-login (closed)="closeModal()"></app-login>
   }
 </div>

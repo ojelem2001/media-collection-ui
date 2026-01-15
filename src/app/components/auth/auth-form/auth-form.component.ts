@@ -14,6 +14,7 @@ import { IUser } from '../../../models';
 export class AuthFormComponent implements OnInit  {
   currentUser$?: Observable<IUser | null>;
   platformId: Object;
+  showModal = false;
 
   constructor(
     @Inject(PLATFORM_ID) platformId: Object,
@@ -29,5 +30,13 @@ export class AuthFormComponent implements OnInit  {
   
   logout(): void {
     this.authService.logout();
+  }
+  
+  showLoginModal(): void {
+    this.showModal = true;
+  }
+
+  closeModal(): void {
+    this.showModal = false;
   }
 }

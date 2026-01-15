@@ -1,4 +1,5 @@
 import { IUser, ILoginRequest, IAuthResponse, IRegisterRequest } from '../models';
+import { environment } from '../../environments/environment';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Inject, PLATFORM_ID } from '@angular/core';
@@ -28,7 +29,7 @@ export class AuthService {
   }
 
   login(credentials: ILoginRequest): Observable<IAuthResponse> {
-    return this.http.post<IAuthResponse>('/api/auth/login', credentials)
+    return this.http.post<IAuthResponse>(`${environment.apiUrl}/api/users/auth`, credentials)
       .pipe(
         tap(response => this.setAuth(response))
       );
@@ -53,15 +54,10 @@ export class AuthService {
     const token = this.getToken();
     if (!token) return false;
     return !this.jwtHelper.isTokenExpired(token);
-  }
-
-  isAdmin(): boolean {
-    const user = this.currentUserSubject.getValue();
-    return user?.role === 'admin';
-  }
+  } 
 
   register(userData: IRegisterRequest): Observable<IAuthResponse> {
-    return this.http.post<IAuthResponse>('/api/auth/register', userData)
+    return this.http.post<IAuthResponse>(`${environment.apiUrl}/api/users/register`, userData)
       .pipe(
         tap(response => this.setAuth(response))
       );

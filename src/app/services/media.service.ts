@@ -12,7 +12,7 @@ export class MediaService {
   constructor(private http: HttpClient) {}
 
  getMedia(): Observable<IMedia[]> {
-   const url = `/api/users/${environment.userId}/media/batch`;
+   const url = `${environment.apiUrl}/api/users/${environment.userId}/media/batch`;
 
     return this.http.get<IMedia[]>(url).pipe(
       map(movies => movies),
