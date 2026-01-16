@@ -1,6 +1,8 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../../services';
+import { FormGroup, } from '@angular/forms';
+import { AuthService, FormsService } from '../../../services';
+import { IAuthResponse } from '../../../models';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,16 +17,14 @@ export class LoginComponent {
   isLoading = false;
   errorMessage = '';
   
-  loginForm: FormGroup;
+  form: FormGroup;
 
   constructor(
-    private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private formsService: FormsService,
+    private router: Router
   ) {
-    this.loginForm = this.fb.group({
-      login: ['', [Validators.required]],
-      password: ['', [Validators.required, Validators.minLength(6)]]
-    });
+    this.form = this.formsService.createLoginForm()
   }
 
   switchMode(): void {
@@ -37,14 +37,14 @@ export class LoginComponent {
   }
 
   onSubmit(): void {
-    console.log('!!loginForm=', this.loginForm)
-    if (this.loginForm.valid) {
+    if (this.form.valid) {
       this.isLoading = true;
       this.errorMessage = '';
       
-      this.authService.login(this.loginForm.value).subscribe({
-        next: () => {
+      this.authService.login(this.form.value).subscribe({
+        next: (response: IAuthResponse) => {
           this.close();
+          this.router.navigate([`/${response.user.id}`])
         },
         error: (error) => {
           this.isLoading = false;

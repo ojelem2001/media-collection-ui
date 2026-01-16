@@ -5,7 +5,7 @@
       <button class="close-btn" (click)="close()">×</button>
     </div>
      
-      <form [formGroup]="loginForm"  (ngSubmit)="onSubmit()" class="auth-form">
+      <form [formGroup]="form"  (ngSubmit)="onSubmit()" class="auth-form">
         <div class="form-group">
           <label for="login">Логин</label>
           <input 
@@ -13,7 +13,7 @@
             type="email" 
             formControlName="login" 
             placeholder="Введите ваш логин">
-          @if (loginForm.get('login')?.invalid && loginForm.get('login')?.touched) {
+          @if (form.get('login')?.invalid && form.get('login')?.touched) {
             <div class="error-message">
               Введите корректный логин
             </div>
@@ -27,7 +27,7 @@
             type="password" 
             formControlName="password" 
             placeholder="Введите пароль">
-          @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+          @if (form.get('password')?.invalid && form.get('password')?.touched) {
             <div class="error-message">
               Минимум 6 символов
             </div>
@@ -43,7 +43,7 @@
         <button 
           type="submit" 
           class="auth-button" 
-          [disabled]="loginForm.invalid || isLoading">
+          [disabled]="form.invalid || isLoading">
           @if (isLoading) {
             <span class="spinner"></span>
           } @else {
@@ -51,5 +51,9 @@
           }
         </button>
       </form>
+
+    <div class="auth-footer">
+      <p>Нет аккаунта? <a routerLink="/register" class="auth-link">Зарегистрироваться</a></p>
+    </div>
   </div>
 </div>

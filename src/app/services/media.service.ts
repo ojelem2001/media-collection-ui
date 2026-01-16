@@ -11,8 +11,8 @@ import { catchError, map } from 'rxjs/operators';
 export class MediaService {
   constructor(private http: HttpClient) {}
 
- getMedia(): Observable<IMedia[]> {
-   const url = `${environment.apiUrl}/api/users/${environment.userId}/media/batch`;
+ getMedia(userId: string): Observable<IMedia[]> {
+   const url = `${environment.apiUrl}/api/users/${userId}/media`;
 
     return this.http.get<IMedia[]>(url).pipe(
       map(movies => movies),

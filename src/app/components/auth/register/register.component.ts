@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../services';
+import { AuthService, FormsService } from '../../../services';
 
 @Component({
   selector: 'app-register',
@@ -10,35 +10,24 @@ import { AuthService } from '../../../services';
   standalone: false
 })
 export class RegisterComponent {
-  registerForm: FormGroup;
+  form: FormGroup;
   isLoading = false;
   errorMessage = '';
 
   constructor(
-    private fb: FormBuilder,
     private authService: AuthService,
+    private formsService: FormsService,
     private router: Router
   ) {
-    this.registerForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required]
-    }, { validators: this.passwordMatchValidator });
-  }
-
-  passwordMatchValidator(group: FormGroup) {
-    const password = group.get('password')?.value;
-    const confirmPassword = group.get('confirmPassword')?.value;
-    return password === confirmPassword ? null : { mismatch: true };
+    this.form = this.formsService.createRegisterForm();
   }
 
   onSubmit(): void {
-    if (this.registerForm.valid) {
+    if (this.form.valid) {
       this.isLoading = true;
       this.errorMessage = '';
       
-      const { confirmPassword, ...userData } = this.registerForm.value;
+      const { confirmPassword, ...userData } = this.form.value;
       
       this.authService.register(userData).subscribe({
         next: () => {

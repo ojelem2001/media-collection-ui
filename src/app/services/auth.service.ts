@@ -13,8 +13,10 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AuthService {
   private currentUserSubject = new BehaviorSubject<IUser | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
+  
   private readonly TOKEN_KEY = 'access_token';
   private readonly USER_KEY = 'current_user';
+
   private jwtHelper = new JwtHelperService();
   private isBrowser: boolean;
 

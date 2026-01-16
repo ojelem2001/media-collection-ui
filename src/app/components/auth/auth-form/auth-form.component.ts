@@ -1,8 +1,8 @@
 import { isPlatformServer } from '@angular/common';
 import { Component, Inject, PLATFORM_ID, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
 import { AuthService } from '../../../services';
 import { IUser } from '../../../models';
+import { Observable } from 'rxjs';
 
 
 @Component({

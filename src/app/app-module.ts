@@ -2,6 +2,8 @@ import { NgModule, provideBrowserGlobalErrorListeners, provideZonelessChangeDete
 import { BrowserModule, provideClientHydration, withEventReplay } from '@angular/platform-browser';
 import { MediaItemComponent } from './components/media-item/media-item.component';
 import { MediaListComponent } from './components/media-list/media-list.component';
+import { UserMediaComponent } from './containers/user-media/user-media.component';
+import { UserMediaCategoriesComponent } from './components/user-media-categories/user-media-categories.component';
 import { LoginComponent } from './components/auth/login/login.component';
 import { RegisterComponent } from './components/auth/register/register.component';
 import { AuthFormComponent } from './components/auth/auth-form/auth-form.component';
@@ -11,8 +13,7 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { serverRoutes } from './app.routes.server';
-import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 
 
 @NgModule({
@@ -23,6 +24,8 @@ import { RouterModule } from '@angular/router';
     MediaFiltersComponent,
     ThemeSwitcherComponent,
     AuthFormComponent,
+    UserMediaComponent,
+    UserMediaCategoriesComponent,
     LoginComponent,
     RegisterComponent
   ],
@@ -30,7 +33,7 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     BrowserModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(serverRoutes)
+    AppRoutingModule
   ],
   providers: [
     provideBrowserGlobalErrorListeners(),
