@@ -1,5 +1,6 @@
-import { Injectable } from '@angular/core';
+import { Injectable, } from '@angular/core';
 import { IMedia } from '../models';
+import { MEDIAS_MOCKS } from '../models/media.mocks';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -18,7 +19,7 @@ export class MediaService {
       map(movies => movies),
       catchError(error => {
         console.error('Error loading movies:', error);
-        return of([]);
+        return of(MEDIAS_MOCKS);
       })
     )};
 }

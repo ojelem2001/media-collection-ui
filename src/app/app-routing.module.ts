@@ -10,10 +10,6 @@ export const routes: Routes = [
     pathMatch: 'full' 
   },
   { 
-    path: ':userId', 
-    component: UserMediaComponent 
-  },
-  { 
     path: '', 
     component: UserMediaComponent,
     pathMatch: 'full' 
