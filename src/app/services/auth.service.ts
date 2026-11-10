@@ -1,6 +1,7 @@
 import { IUser, ILoginRequest, IAuthResponse, IRegisterRequest } from '../models';
+import { AUTH_MOCKS } from '../models/mocks/auth.mocks';
 import { environment } from '../../environments/environment';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Inject, PLATFORM_ID } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
@@ -31,10 +32,8 @@ export class AuthService {
   }
 
   login(credentials: ILoginRequest): Observable<IAuthResponse> {
-    return this.http.post<IAuthResponse>(`${environment.apiUrl}/api/users/auth`, credentials)
-      .pipe(
-        tap(response => this.setAuth(response))
-      );
+     this.setAuth(AUTH_MOCKS);
+    return of(AUTH_MOCKS);
   }
  
   logout(): void {

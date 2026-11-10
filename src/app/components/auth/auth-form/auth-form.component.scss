@@ -80,6 +80,14 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+
+  text-decoration: none;
+  cursor: pointer;
+  transition: var(--transition);
+
+  &:hover {
+    color: var(--accent);
+  }
 }
 
 .logout-btn {

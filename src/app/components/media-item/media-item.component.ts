@@ -3,9 +3,9 @@ import { IMedia, IMediaPlatform, AggregatorType, MediaType } from '../../models'
 
 @Component({
   selector: 'app-media-item',
-  standalone: false,
+  standalone: true,
   templateUrl: './media-item.component.html',
-  styleUrls: ['./media-item.component.css']
+  styleUrls: ['./media-item.component.scss']
 })
 export class MediaItemComponent {
   @Input() media!: IMedia;

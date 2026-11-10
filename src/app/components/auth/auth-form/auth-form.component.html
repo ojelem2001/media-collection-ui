@@ -1,7 +1,9 @@
 <div>
   @if (currentUser$ | async; as user) {
     <div class="user-menu">
-      <span class="user-name">{{ user.username }}</span>
+      <a class="user-name" [routerLink]="['/', user.id]" title="Моя коллекция">
+        {{ user.username }}
+      </a>
       <button class="logout-btn" (click)="logout()">Выйти</button>
     </div>
   } @else {

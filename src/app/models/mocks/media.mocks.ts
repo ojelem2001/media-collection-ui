@@ -1,6 +1,6 @@
-import { IMedia } from './media.interface';
-import { MediaType } from './media.enum';
-import { AggregatorType } from './aggregator.enum';
+import { IMedia } from './../media.interface';
+import { MediaType } from './../media.enum';
+import { AggregatorType } from './../aggregator.enum';
 
 
 export const MEDIAS_MOCKS: IMedia[] = 

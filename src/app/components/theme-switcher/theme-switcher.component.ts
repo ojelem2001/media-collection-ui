@@ -4,9 +4,9 @@ import { ThemeType } from '../../models';
 
 @Component({
   selector: 'app-theme-switcher',
-  standalone: false,
+  standalone: true,
   templateUrl: './theme-switcher.component.html',
-  styleUrls: ['./theme-switcher.component.css'],  
+  styleUrls: ['./theme-switcher.component.scss'],  
   host: { 'ngSkipHydration': 'true' }
 })
 export class ThemeSwitcherComponent {

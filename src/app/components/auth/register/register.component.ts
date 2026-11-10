@@ -2,12 +2,14 @@ import { Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService, FormsService } from '../../../services';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css'],
-  standalone: false
+  styleUrls: ['./register.component.scss'],
+  imports: [ReactiveFormsModule],
+  standalone: true
 })
 export class RegisterComponent {
   form: FormGroup;

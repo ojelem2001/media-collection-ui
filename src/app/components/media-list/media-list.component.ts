@@ -1,12 +1,14 @@
 import { Component, Input } from '@angular/core';
 import { IMedia, IFilterOptions } from '../../models';
 import { FilterService } from '../../services';
+import { MediaItemComponent } from '../media-item/media-item.component';
 
 @Component({
   selector: 'app-media-list',
-  standalone: false,
+  standalone: true,
+  imports:[MediaItemComponent],
   templateUrl: './media-list.component.html',
-  styleUrls: ['./media-list.component.css']
+  styleUrls: ['./media-list.component.scss']
 })
 export class MediaListComponent {
   @Input() filters: IFilterOptions | undefined;

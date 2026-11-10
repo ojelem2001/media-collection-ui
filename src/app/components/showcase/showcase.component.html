@@ -1,0 +1,36 @@
+<!-- ====== HERO ====== -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Ваша коллекция фильмов и сериалов</h1>
+    <p>
+      Соберите всё, что смотрите, в одном месте. Оценивайте, ищите по жанрам
+      и годам, открывайте новое — в стиле Netflix или Letterboxd.
+    </p>
+    <div class="hero-actions">
+      <a routerLink="/register" class="btn-primary">Создать аккаунт</a>
+      <button class="btn-secondary" (click)="goToDemo()">
+        Посмотреть примеры
+      </button>
+    </div>
+  </div>
+
+  <div class="hero-preview">
+    @for (item of heroPosters; track item.id) {
+      <img [src]="item.posterUrl" [alt]="item.title" loading="lazy">
+    }
+  </div>
+</section>
+
+<!-- ====== SHOWCASE ====== -->
+<section class="showcase" id="showcase-grid">
+  <h2>Посмотрите, как это выглядит</h2>
+  <p class="showcase-subtitle">
+    Несколько карточек из коллекции. Войдите, чтобы собрать свою.
+  </p>
+
+  <div class="showcase-grid">
+    @for (item of showcaseMedia; track item.id) {
+      <app-media-item [media]="item"></app-media-item>
+    }
+  </div>
+</section>

@@ -1,10 +1,9 @@
 import { Injectable, } from '@angular/core';
 import { IMedia } from '../models';
-import { MEDIAS_MOCKS } from '../models/media.mocks';
+import { MEDIAS_MOCKS } from '../models/mocks/media.mocks';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -15,11 +14,5 @@ export class MediaService {
  getMedia(userId: string): Observable<IMedia[]> {
    const url = `${environment.apiUrl}/api/users/${userId}/media`;
 
-    return this.http.get<IMedia[]>(url).pipe(
-      map(movies => movies),
-      catchError(error => {
-        console.error('Error loading movies:', error);
-        return of(MEDIAS_MOCKS);
-      })
-    )};
+    return of(MEDIAS_MOCKS)};
 }

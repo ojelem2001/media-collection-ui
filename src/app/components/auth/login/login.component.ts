@@ -3,12 +3,14 @@ import { FormGroup, } from '@angular/forms';
 import { AuthService, FormsService } from '../../../services';
 import { IAuthResponse } from '../../../models';
 import { Router } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms'; 
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css'],
-  standalone: false
+  styleUrls: ['./login.component.scss'],
+  imports: [ReactiveFormsModule],
+  standalone: true
 })
 export class LoginComponent {
   @Output() closed = new EventEmitter<void>();

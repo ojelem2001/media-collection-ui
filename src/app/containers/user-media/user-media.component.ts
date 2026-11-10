@@ -1,17 +1,30 @@
-import { isPlatformServer, isPlatformBrowser} from '@angular/common';
+import { isPlatformServer, isPlatformBrowser } from '@angular/common';
 import { Component, Inject, PLATFORM_ID, OnInit, signal } from '@angular/core';
-import { Observable, map, take } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthService } from '../../services';
 import { IFilterOptions, MediaType, IUser } from '../../models';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';          // ← RouterLink
+import { ThemeSwitcherComponent } from '../../components/theme-switcher/theme-switcher.component';
+import { MediaFiltersComponent } from '../../components/media-filters/media-filters.component';
+import { AuthFormComponent } from '../../components/auth/auth-form/auth-form.component';
+import { UserMediaCategoriesComponent } from '../../components/user-media-categories/user-media-categories.component';
+import { ShowcaseComponent } from '../../components/showcase/showcase.component';
 
 @Component({
   selector: 'app-user-media',
-  standalone: false,
+  standalone: true,
+  imports: [
+    RouterLink,                                                         // ← ДОБАВИТЬ
+    ThemeSwitcherComponent,
+    MediaFiltersComponent,
+    AuthFormComponent,
+    UserMediaCategoriesComponent,
+    ShowcaseComponent
+  ],
   templateUrl: './user-media.component.html',
-  styleUrls: ['./user-media.component.css']
+  styleUrls: ['./user-media.component.scss']
 })
-export class UserMediaComponent implements OnInit  {  
+export class UserMediaComponent implements OnInit {
   protected readonly title = signal('my-media-collection');
   private platformId: Object;
 
@@ -21,7 +34,7 @@ export class UserMediaComponent implements OnInit  {
 
   currentFilters?: IFilterOptions;
   currentUser$?: Observable<IUser | null>;
- 
+
   constructor(
     @Inject(PLATFORM_ID) platformId: Object,
     private route: ActivatedRoute,
@@ -32,16 +45,14 @@ export class UserMediaComponent implements OnInit  {
   }
 
   ngOnInit(): void {
-    if (isPlatformServer(this.platformId)){ return; }
-    
-    this.currentUser$ =  this.authService.currentUser$;
+    if (isPlatformServer(this.platformId)) { return; }
 
-    this.route.params
-    .pipe(
-      take(1),
-      map(params => params))
-    .subscribe(params =>  this.userId = params['userId']);     
-  }  
+    this.currentUser$ = this.authService.currentUser$;
+
+    this.route.params.subscribe(params => {
+      this.userId = params['userId'];
+    });
+  }
 
   onFiltersChanged(filters: IFilterOptions) {
     this.currentFilters = filters;

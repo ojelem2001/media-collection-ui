@@ -1,12 +1,14 @@
-import { Component, Input, Output,EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { IFilterOptions, DecadeFilter } from '../../models';
 import { FilterService } from '../../services';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-media-filters',
-  standalone: false,
+  standalone: true,
+  imports: [FormsModule],
   templateUrl: './media-filters.component.html',
-  styleUrls: ['./media-filters.component.css']
+  styleUrls: ['./media-filters.component.scss']
 })
 export class MediaFiltersComponent {
   @Output() filterChange = new EventEmitter<IFilterOptions>();
