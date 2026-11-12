@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { IMedia } from '../../models';
-import { MEDIAS_MOCKS } from '../../models/mocks/media.mocks';
+import { MEDIA_MOCKS } from '../../models/mocks/media.mocks';
 import { MediaItemComponent } from '../media-item/media-item.component';
 import { isPlatformBrowser } from '@angular/common';
 import { DEMO_CONFIG } from '../../config/demo.config';
@@ -28,7 +28,7 @@ export class ShowcaseComponent implements OnInit {
   ngOnInit(): void {
     if (!this.isBrowser) return;
 
-    const withPoster = MEDIAS_MOCKS.filter(m => !!m.posterUrl);
+    const withPoster = MEDIA_MOCKS.filter(m => !!m.posterUrl);
     const shuffled = this.shuffle([...withPoster]);
 
     this.heroPosters = shuffled.slice(0, 4);

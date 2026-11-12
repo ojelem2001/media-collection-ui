@@ -1,6 +1,6 @@
 import { Injectable, } from '@angular/core';
 import { IMedia } from '../models';
-import { MEDIAS_MOCKS } from '../models/mocks/media.mocks';
+import { MEDIA_MOCKS } from '../models/mocks/media.mocks';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
@@ -14,5 +14,5 @@ export class MediaService {
  getMedia(userId: string): Observable<IMedia[]> {
    const url = `${environment.apiUrl}/api/users/${userId}/media`;
 
-    return of(MEDIAS_MOCKS)};
+    return of(MEDIA_MOCKS)};
 }

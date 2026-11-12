@@ -32,6 +32,8 @@ export class AuthService {
   }
 
   login(credentials: ILoginRequest): Observable<IAuthResponse> {
+     // In mock mode, simply return mocked response
+     // In real mode, perform an HTTP request to the API
      this.setAuth(AUTH_MOCKS);
     return of(AUTH_MOCKS);
   }

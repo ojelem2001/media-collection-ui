@@ -14,7 +14,7 @@ import { ShowcaseComponent } from '../../components/showcase/showcase.component'
   selector: 'app-user-media',
   standalone: true,
   imports: [
-    RouterLink,                                                         // ← ДОБАВИТЬ
+    RouterLink,
     ThemeSwitcherComponent,
     MediaFiltersComponent,
     AuthFormComponent,

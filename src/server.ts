@@ -10,7 +10,14 @@ import { join } from 'node:path';
 const browserDistFolder = join(import.meta.dirname, '../browser');
 
 const app = express();
-const angularApp = new AngularNodeAppEngine();
+// Allow configuring allowed hosts for SSR via NG_ALLOWED_HOSTS environment variable
+const allowedHostsRaw = (process as any).env?.NG_ALLOWED_HOSTS ?? 'localhost';
+const allowedHosts = allowedHostsRaw
+  .split(',')
+  .map((v : string) => v.trim())
+  .filter(Boolean);
+console.log('Angular SSR allowedHosts:', allowedHosts);
+const angularApp = new AngularNodeAppEngine({ allowedHosts });
 
 /**
  * Example Express Rest API endpoints can be defined here.
@@ -51,8 +58,9 @@ app.use((req, res, next) => {
  * Start the server if this module is the main entry point.
  * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
  */
-if (isMainModule(import.meta.url)) {
+if (isMainModule(import.meta.url) || process.env['pm_id']) {
   const port = process.env['PORT'] || 4000;
+  // RespectNG_ALLOWED_HOSTS by binding to localhost only if provided; otherwise bind to all interfaces
   app.listen(port, (error) => {
     if (error) {
       throw error;
