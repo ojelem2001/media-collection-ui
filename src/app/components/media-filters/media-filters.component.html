@@ -39,18 +39,7 @@
           }
         </select>
       </div>
- 
-<!--
-      <div class="filter-group">
-        <label for="year">Год:</label>
-        <select id="year" [(ngModel)]="selectedYear" (change)="applyFilters()">
-          <option [value]="0">Все годы</option>
-          <option *ngFor="let year of availableYears" [value]="year">
-            {{ year }}
-          </option>
-        </select>
-      </div>
-    -->  
+
       <button class="reset-btn" (click)="resetFilters()">
         Сбросить фильтры
       </button>

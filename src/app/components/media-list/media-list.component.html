@@ -1,5 +1,9 @@
-<div class="media-grid">
-  @for (media of getFiltered(filters); track media.id;) {
-    <app-media-item [media]="media"></app-media-item>
-  }
-</div>
+@if ($filtered().length === 0) {
+  <p class="empty">Ничего не найдено. Попробуйте изменить фильтры.</p>
+} @else {
+  <div class="media-grid">
+    @for (media of $filtered(); track media.id;) {
+      <app-media-item [media]="media"></app-media-item>
+    }
+  </div>
+}

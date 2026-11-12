@@ -5,7 +5,7 @@
       (click)="showMovies()">
       <i class="tab-icon movie-icon"></i>
       <span>Фильмы</span>
-      <span class="counter">{{moviesCount$$.getValue()}}</span>
+      <span class="counter">{{moviesCount$$ | async}}</span>
     </button>
     
     <button 
@@ -14,7 +14,7 @@
       (click)="showSeries()">
       <i class="tab-icon series-icon"></i>
       <span>Сериалы</span>
-      <span class="counter">{{seriesCount$$.getValue()}}</span>
+      <span class="counter">{{seriesCount$$ | async}}</span>
     </button>
   </div>
   

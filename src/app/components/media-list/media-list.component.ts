@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, computed, input, inject } from '@angular/core';
 import { IMedia, IFilterOptions } from '../../models';
 import { FilterService } from '../../services';
 import { MediaItemComponent } from '../media-item/media-item.component';
@@ -11,31 +11,20 @@ import { MediaItemComponent } from '../media-item/media-item.component';
   styleUrls: ['./media-list.component.scss']
 })
 export class MediaListComponent {
-  @Input() filters: IFilterOptions | undefined;
-  @Input() set medias(value: IMedia[]) {
-    this.initMovies(value);
-  }
-  mediaCollection: IMedia[] = [];
+  $filters = input.required<IFilterOptions | undefined>({ alias: "filters"});
+  $medias = input.required<IMedia[]>({ alias: "medias"});
+  
+  private filterService = inject(FilterService);
 
-  constructor(
-    private filterService: FilterService
-  ) {}
+  private $sortedMedias = computed(() => {
+    return [...this.$medias()].sort((a, b) =>
+      a.title.toLowerCase().localeCompare(b.title.toLowerCase())
+    );
+  });
 
-  initMovies(medias: IMedia[]): void {
-    const sortedMovies = medias.sort((a, b) => {
-      const titleA = a.title.toLowerCase();
-      const titleB = b.title.toLowerCase();      
-      return titleA.localeCompare(titleB);
-    });
-    this.mediaCollection = [...sortedMovies];
-    this.filterService.updateAvailableOptions({
-      genres: this.filterService.getAvailableGenres(sortedMovies),
-      years: this.filterService.getAvailableYears(sortedMovies)
-    });
-  }
-
-  getFiltered(filters: IFilterOptions | undefined): IMedia[] {
-    let result = [...this.mediaCollection];
+  readonly $filtered = computed(() => {
+    const filters = this.$filters();
+    let result = this.$sortedMedias();
     if(!filters){
       return result;      
     }
@@ -44,5 +33,5 @@ export class MediaListComponent {
     result = this.filterService.filterBySearch(result, filters.searchQuery);
     
     return result;
-  }
+  });
 }

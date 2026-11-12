@@ -24,12 +24,13 @@ button.primary {
 
 /* Тема Netflix (тёмная) */
 .netflix-theme {
-  --bg-primary: #141414 ! important;
+  --bg-primary: #141414 !important;
   --bg-secondary: #222;
   --text-primary: #e5e5e5;
   --text-secondary: #b3b3b3;
   --card-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
   --play-bg:  #e50914;
+  --accent: #e50914; --accent-rgb: 229, 9, 20;
 }
 
 /* Тема Letterboxd (светлая) */
@@ -41,4 +42,5 @@ button.primary {
   --accent: #00a862;
   --card-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   --play-bg: #212529;
+  --accent: #00a862; --accent-rgb: 0, 168, 98;
 }

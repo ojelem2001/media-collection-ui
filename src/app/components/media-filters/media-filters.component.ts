@@ -1,7 +1,8 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit, DestroyRef, inject } from '@angular/core';
 import { IFilterOptions, DecadeFilter } from '../../models';
 import { FilterService } from '../../services';
 import { FormsModule } from '@angular/forms';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-media-filters',
@@ -10,11 +11,10 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './media-filters.component.html',
   styleUrls: ['./media-filters.component.scss']
 })
-export class MediaFiltersComponent {
+export class MediaFiltersComponent implements OnInit {
   @Output() filterChange = new EventEmitter<IFilterOptions>();
   
   selectedGenre = '';
-  selectedYear: number = 0;
   selectedDecade = DecadeFilter.ALL;
   searchQuery = '';
   
@@ -22,12 +22,16 @@ export class MediaFiltersComponent {
   availableYears: number[] = [];
   decadeFilters = Object.values(DecadeFilter);
 
+  private destroyRef = inject(DestroyRef); 
+
   constructor(
     private filterService: FilterService
   ) {}
 
   ngOnInit() {
-    this.filterService.availableOptions$.subscribe(options => {
+    this.filterService.availableOptions$
+    .pipe(takeUntilDestroyed(this.destroyRef))
+    .subscribe(options => {
       this.availableGenres = options.genres;
       this.availableYears = options.years;
     });
@@ -37,7 +41,6 @@ export class MediaFiltersComponent {
     this.filterChange.emit({
       genre: this.selectedGenre,
       decades: this.selectedDecade,
-      year: this.selectedYear,
       searchQuery: this.searchQuery.trim()
     });
   }
@@ -46,7 +49,6 @@ export class MediaFiltersComponent {
     this.searchQuery = '';
     this.selectedGenre = '';
     this.selectedDecade = DecadeFilter.ALL;
-    this.selectedYear = 0;
     this.applyFilters();
   }
 }

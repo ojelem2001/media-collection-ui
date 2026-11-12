@@ -58,7 +58,7 @@ export class FilterService {
     case DecadeFilter.TWO_THOUSAND_TEN:
       return movies.filter(m => m.year >= 2010 && m.year <= 2019);
     case DecadeFilter.TWO_THOUSAND_TWENTY:
-      return movies.filter(m => m.year > 2020);
+      return movies.filter(m => m.year >= 2020);
     default:
       return movies;
   }

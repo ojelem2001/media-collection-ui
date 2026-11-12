@@ -1,3 +1,6 @@
+@let genres = $genres();
+@let media = $media();
+
 <div class="media-card">
   <div class="media-card-img-container">
     <img [src]="media.posterUrl" [alt]="media.title">
@@ -30,9 +33,9 @@
         </div>
       } 
     
-      <span class="genres">{{ getGenres(media).slice(0, 2).join(', ') }}</span>
-       @if (getGenres(media).length > 3) {
-        <span  class="more-genres">+{{ getGenres(media).length - 3 }}</span>
+      <span class="genres">{{ genres.slice(0, 2).join(', ') }}</span>
+       @if (genres.length > 2) {
+        <span  class="more-genres">+{{ genres.length - 3 }}</span>
        }
     </div>
     
@@ -53,7 +56,7 @@
 
     <p class="description">{{ getAggregator(media, aggregatorType.Kinopoisk)?.description ?? media.description }}</p>
     
-    <button class="play-button" (click)="playInVLC()">
+    <button class="play-button">
       <span class="vlc-icon"></span> Смотреть
     </button>
   </div>

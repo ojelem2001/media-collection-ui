@@ -11,7 +11,7 @@ export const routes: Routes = [
   {
     path: ':userId',
     component: UserMediaComponent,
-    pathMatch: 'full'
+    pathMatch: 'prefix'
   },
   {
     path: '',

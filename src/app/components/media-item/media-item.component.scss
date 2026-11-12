@@ -65,6 +65,9 @@
   gap: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
+  
+  margin-top: auto;
+  align-self: flex-start;
 
   &:hover {
     background: #e67300;
@@ -166,9 +169,4 @@
   overflow: hidden;
   text-overflow: ellipsis;
   flex-grow: 1;
-}
-
-.play-button {
-  margin-top: auto;
-  align-self: flex-start;
 }

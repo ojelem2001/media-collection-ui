@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject, PLATFORM_ID } from '@angular/core';
+import { Component, OnInit, Inject, PLATFORM_ID, afterNextRender } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { IMedia } from '../../models';
 import { MEDIA_MOCKS } from '../../models/mocks/media.mocks';
@@ -23,17 +23,22 @@ export class ShowcaseComponent implements OnInit {
     private router: Router
   ) {
     this.isBrowser = isPlatformBrowser(platformId);
+     afterNextRender(() => {
+      const withPoster = MEDIA_MOCKS.filter(m => !!m.posterUrl);
+      const shuffled = this.shuffle([...withPoster]);
+      this.heroPosters = shuffled.slice(0, 4);
+      this.showcaseMedia = shuffled.slice(0, 6);
+    });
   }
 
   ngOnInit(): void {
-    if (!this.isBrowser) return;
-
     const withPoster = MEDIA_MOCKS.filter(m => !!m.posterUrl);
     const shuffled = this.shuffle([...withPoster]);
 
     this.heroPosters = shuffled.slice(0, 4);
     this.showcaseMedia = shuffled.slice(0, 6);
   } 
+  
   /** Переход на коллекцию демо-пользователя из конфига */
   goToDemo(): void {
     const ids = DEMO_CONFIG.userIds;

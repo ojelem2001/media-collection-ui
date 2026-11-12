@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, afterNextRender } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ThemeService } from './services';
 
@@ -9,9 +9,10 @@ import { ThemeService } from './services';
   templateUrl: './app.component.html'
 })
 export class AppComponent implements OnInit {
-  constructor(private themeService: ThemeService) {}
+  constructor(private themeService: ThemeService) {
+    afterNextRender(() => this.themeService.initializeTheme());
+  }
 
   ngOnInit(): void {
-    this.themeService.initializeTheme();
   }
 }
